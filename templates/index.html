@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>| Bulk Email System |</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<img class="wave" src="{% static 'img/wave.png' %}">
+	<div class="container">
+		<div class="img">
+			<img src="{% static 'img/bg1.svg' %}">
+		</div>
+		<div class="login-content">
+			<form action="{% url 'index' %}" method="post">
+			{% for message in messages %}
+    <center><h4 style="color:green;">{{message}}</h4></center>
+    <br>
+    <br>
+    {% endfor %}
+               {% csrf_token %} 
+				<img src="{% static 'img/avatar.svg' %}">
+				<h2 class="title">Welcome</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-envelope"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Username</h5>
+           		   		<input type="text" name="email" class="input">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" name="pwd" class="input">
+            	   </div>
+            	</div>
+            	<a href="{% url 'register' %}">Sign Up</a>
+            	<input type="submit" class="btn" value="Login">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

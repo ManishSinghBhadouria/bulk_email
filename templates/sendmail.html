@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>| Bulk Email System |</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script>
+var stateObject = {
+"Engineering": { "CSE": ["1", "2", "3", "4", "5", "6", "7", "8"],
+		"IT": ["1", "2", "3", "4", "5", "6", "7", "8"],
+		"EC": ["1", "2", "3", "4", "5", "6", "7", "8"],
+		"ME": ["1", "2", "3", "4", "5", "6", "7", "8"],
+		"CE": ["1", "2", "3", "4", "5", "6", "7", "8"],
+		"FT": ["1", "2", "3", "4", "5", "6", "7", "8"]
+},
+
+"Mtech": { "CSE": ["1", "2", "3", "4"],
+		"IT": ["1", "2", "3", "4"],
+		"EC": ["1", "2", "3", "4"],
+		"ME": ["1", "2", "3", "4"],
+		"CE": ["1", "2", "3", "4"]
+},
+
+
+"Diploma": {
+"CE": ["1", "2", "3", "4", "5", "6"],
+"EE": ["1", "2", "3", "4", "5", "6"],
+"ME": ["1", "2", "3", "4", "5", "6"]
+},
+
+"PGDCA": {
+"CSE": ["1", "2"]
+},
+
+"BCA": {
+"CSE": ["1", "2", "3", "4", "5", "6"]
+},
+
+"BBA": {
+"BBA": ["1", "2", "3", "4", "5", "6"]
+},
+
+"Bcom": {
+"Bcom": ["1", "2", "3", "4", "5", "6"],
+"Bcomcomputer": ["1", "2", "3", "4", "5", "6"],
+"Bcomhons": ["1", "2", "3", "4", "5", "6"]
+},
+
+"MBA": {
+"MBA": ["1", "2", "3", "4"]
+},
+
+
+
+
+
+					}
+window.onload = function () {
+var countySel = document.getElementById("countySel"),
+stateSel = document.getElementById("stateSel"),
+districtSel = document.getElementById("districtSel");
+for (var country in stateObject) {
+countySel.options[countySel.options.length] = new Option(country, country);
+}
+countySel.onchange = function () {
+stateSel.length = 1; // remove all options bar first
+districtSel.length = 1; // remove all options bar first
+if (this.selectedIndex < 1) return; // done
+for (var state in stateObject[this.value]) {
+stateSel.options[stateSel.options.length] = new Option(state, state);
+}
+}
+countySel.onchange(); // reset in case page is reloaded
+stateSel.onchange = function () {
+districtSel.length = 1; // remove all options bar first
+if (this.selectedIndex < 1) return; // done
+var district = stateObject[countySel.value][this.value];
+for (var i = 0; i < district.length; i++) {
+districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
+}
+}
+}
+
+document.querySelector("html").classList.add('js');
+
+var fileInput  = document.querySelector( ".input-file" ),  
+    button     = document.querySelector( ".input-file-trigger" ),
+    the_return = document.querySelector(".file-return");
+      
+button.addEventListener( "keydown", function( event ) {  
+    if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+        fileInput.focus();  
+    }  
+});
+button.addEventListener( "click", function( event ) {
+   fileInput.focus();
+   return false;
+});  
+fileInput.addEventListener( "change", function( event ) {  
+    the_return.innerHTML = this.value;  
+});  
+
+</script>
+</head>
+<body>
+	<img class="wave" src="{% static 'img/wave.png' %}">
+	<div class="container">
+		<div class="img">
+			<img src="{% static 'img/bg1.svg' %}">
+		</div>
+		<div class="login-content">
+        
+			<form action="{% url 'sendmail' %}" method="post">
+            <input name="email" type="hidden" value={{email}}>
+    <input name="pwd" type="hidden" value={{pwd}}>
+            {% for message in messages %}
+    <center><h4 style="color:red;">{{message}}</h4></center>
+    <br>
+    <br>
+    {% endfor %}
+               {% csrf_token %} 
+               <select class="select-css" name="programme" id="countySel" size="1">
+    <option  selected="selected">Choose Programme</option>
+</select>
+<select class="select-css" name="branch" id="stateSel" size="1">
+    <option  selected="selected">Choose Branch</option>
+</select>
+<select class="select-css" name="sem" id="districtSel" size="1">
+    <option  selected="selected">Choose Semester</option>
+</select>
+				<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Subject</h5>
+           		   		<input type="text" name="sub" class="input" required>
+           		   </div>
+           		</div>
+           		
+           		<div class="form-group purple-border">
+                   
+                   <div class="div">
+           		   		<h5>Message</h5>
+  <textarea class="form-control" id="exampleFormControlTextarea4" rows="8" cols="50" name="msg" required></textarea>
+  
+  </div>
+</div>
+
+           		   
+            	<input type="submit" class="btn" value="Send">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
