@@ -1,1 +1,1 @@
-web: gunicorn feedback.wsgi --log-file -
+web: gunicorn Bulk_Email_System.wsgi --log-file -
