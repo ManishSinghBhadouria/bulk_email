@@ -349,12 +349,7 @@ fileInput.addEventListener( "change", function( event ) {
 	<img class="wave" src="{% static 'img/wave.png' %}">
 	<u><i><h1 style="color:blue;">Send Bulk Mail</h1>
 	<br>
-	<h3 style="color:grey;">{{email}}</h3>
-	{% for message in messages %}
-    <center><h3 style="color:green;">{{message}}</h3></center>
-    <br>
-    <br>
-    {% endfor %}
+	<h3 style="color:green;">{{email}}</h3>
 	<div class="container">
 		<div class="img">
 			<img src="{% static 'img/bg1.svg' %}">
@@ -365,10 +360,14 @@ fileInput.addEventListener( "change", function( event ) {
 				+ Compose
 			</div>
 			<div class = "message">
-			<form action="{% url 'sendmail' %}" method="post">
+			<form action="{% url 'sendattachments' %}" enctype="multipart/form-data" method="post">
             <input name="email" type="hidden" value={{email}}>
     <input name="pwd" type="hidden" value={{pwd}}>
-            
+            {% for message in messages %}
+    <center><h4 style="color:red;">{{message}}</h4></center>
+    <br>
+    <br>
+    {% endfor %}
                {% csrf_token %} 
 
 					<select class="box" name="programme" id="countySel" size="1">
@@ -390,12 +389,12 @@ fileInput.addEventListener( "change", function( event ) {
 					<textarea name="msg" id="messarea" placeholder=" Message* " required></textarea>
 					<br>
 				<br>
-			
+			<input type="file" name="document" required>
 			<br>
 				<br>
 					<input type="submit" value="Send Mail" id="send">
 				</form>
-				<a href="{% url 'attachments' %}"><u><i><h3 style="color:blue;">Send With Attachments &nbsp;&nbsp;  </h3></a>
+				<a href="{% url 'index' %}"><u><i><h3 style="color:blue;">Send WithOut Attachments &nbsp;&nbsp;  </h3></a>
 			</div>
 			<div class = "bottom"></div>			
 			<div class = "left"></div>

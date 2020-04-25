@@ -7,7 +7,18 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <style>
+	.box {
+      width: 110px;
+      height: 30px;
+      border: 3px solid #999;
+      font-size: 20px;
+      color: #1c87c9;
+      background-color: #eee;
+      border-radius: 5px;
+      box-shadow: 4px 4px #ccc;
+      }
+	  </style>
 <script>
 var stateObject = {
 "Engineering": { "CSE": ["1", "2", "3", "4", "5", "6", "7", "8"],
@@ -138,16 +149,17 @@ fileInput.addEventListener( "change", function( event ) {
            		   </div>
            		</div>
            		
-<select class="select-css" name="programme" id="countySel" size="1">
-    <option  selected="selected">Choose Programme</option>
+<select class="box" name="programme" id="countySel" size="1">
+    <option  selected="selected">Programme</option>
 </select>
-<select class="select-css" name="branch" id="stateSel" size="1">
-    <option  selected="selected">Choose Branch</option>
+<select class="box"  name="branch" id="stateSel" size="1">
+    <option  selected="selected">Branch</option>
 </select>
-<select class="select-css" name="sem" id="districtSel" size="1">
-    <option  selected="selected">Choose Semester</option>
+<select class="box" name="sem" id="districtSel" size="1">
+    <option  selected="selected">Semester</option>
 </select>
-
+<br>
+<br>
             	<a href="{% url 'index' %}">Login</a>
             	<input type="submit" class="btn" value="Sign Up">
             </form>
