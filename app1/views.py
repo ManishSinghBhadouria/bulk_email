@@ -137,6 +137,13 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
+        from django.conf import settings
+        settings.EMAIL_HOST = 'smtp.gmail.com'
+        settings.EMAIL_PORT = 587
+        settings.EMAIL_HOST_USER='vikrantgroupofinstitutionsgwal@gmail.com'
+        settings.EMAIL_HOST_PASSWORD='vikrant1234'
+        settings.EMAIL_USE_TLS=True
+        settings.EMAIL_USE_SSL=False
         name = request.POST['name']
         email = request.POST['email']
         programme = request.POST['programme']
