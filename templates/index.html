@@ -17,7 +17,7 @@
 		<div class="login-content">
 			<form action="{% url 'index' %}" method="post">
 			{% for message in messages %}
-    <center><h4 style="color:green;">{{message}}</h4></center>
+    <center><h4 style="color:red;">{{message}}</h4></center>
     <br>
     <br>
     {% endfor %}

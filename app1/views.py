@@ -28,11 +28,12 @@ def index(request):
         context={'email':email,'pwd':pwd}
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
-        if server.login(email, pwd):
+        try:
+            server.login(email, pwd)
             request.session['loginid'] = email
             request.session['loginpwd'] = pwd
             return  render (request,'sendmail.html',context)
-        else:
+        except:
             messages.info(request, 'Invalid Credentials !!!!')
             return  render (request,'index.html')
         server.quit()
@@ -137,13 +138,6 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        from django.conf import settings
-        settings.EMAIL_HOST = 'smtp.gmail.com'
-        settings.EMAIL_PORT = 587
-        settings.EMAIL_HOST_USER='vikrantgroupofinstitutionsgwal@gmail.com'
-        settings.EMAIL_HOST_PASSWORD='vikrant1234'
-        settings.EMAIL_USE_TLS=True
-        settings.EMAIL_USE_SSL=False
         name = request.POST['name']
         email = request.POST['email']
         programme = request.POST['programme']
