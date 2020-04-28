@@ -10,10 +10,7 @@ from django.contrib import messages
 import requests
 from django.contrib.sessions.models import Session
 from django.core.files.storage import FileSystemStorage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
+
 
 
 def index(request):
@@ -139,6 +136,13 @@ def logout(request):
 def register(request):
     if request.method == 'POST':
         name = request.POST['name']
+        from django.conf import settings
+        settings.EMAIL_HOST = 'smtp.gmail.com'
+        settings.EMAIL_PORT = 587
+        settings.EMAIL_HOST_USER='vikrantgroupofinstitutionsgwal@gmail.com'
+        settings.EMAIL_HOST_PASSWORD='vikrant1234'
+        settings.EMAIL_USE_TLS=True
+        settings.EMAIL_USE_SSL=False
         email = request.POST['email']
         programme = request.POST['programme']
         branch = request.POST['branch']
